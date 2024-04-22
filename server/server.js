@@ -12,6 +12,8 @@ const PORT = 3001;
 // Enable CORS for all routes
 app.use(cors());
 
+// npm install express-rate-limit
+
 // rate limiting to API 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
