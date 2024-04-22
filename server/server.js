@@ -1,7 +1,9 @@
+const dotenv = require('dotenv');
 const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
 
+dotenv.config();
 const app = express();
 const PORT = 3001;
 
@@ -77,7 +79,7 @@ app.get("/recipeStream", (req, res) => {
 });
 
 async function fetchOpenAICompletionsStream(messages, callback) {
-  const OPENAI_API_KEY = " ";
+  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
   const aiModel = "gpt-3.5-turbo";
