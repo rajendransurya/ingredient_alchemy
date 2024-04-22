@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
+const rateLimit = require("express-rate-limit");
+
 
 dotenv.config();
 const app = express();
@@ -9,6 +11,16 @@ const PORT = 3001;
 
 // Enable CORS for all routes
 app.use(cors());
+
+// rate limiting to API 
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  standardHeaders: true, 
+  legacyHeaders: false, 
+  message: 'Too many requests from this IP, please try again after a while'
+});
+
 
 // SSE Endpoint
 app.get("/recipeStream", (req, res) => {
