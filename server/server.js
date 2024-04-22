@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
+const fetchNutrientData = require('./nutritionApi');  // Import the fetchNutrientData function
 
 dotenv.config();
 const app = express();
@@ -11,21 +12,21 @@ const PORT = 3001;
 app.use(cors());
 
 // SSE Endpoint
-app.get("/recipeStream", (req, res) => {
-  const ingredients = req.query.ingredients;
+app.get("/recipeStream", async (req, res) => {
+  const ingredients = req.query.ingredients.split(',').map(ingredient => ingredient.trim()); // Split ingredients by comma and trim whitespace
   const mealType = req.query.mealType;
   const cuisine = req.query.cuisine;
   const cookingTime = req.query.cookingTime;
   const complexity = req.query.complexity;
 
-  console.log(req.query)
+  console.log(req.query);
 
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
   // Function to send messages
-  const sendEvent = (chunk) => {
+  const sendEvent = async (chunk) => {
     let chunkResponse;
     if (chunk.choices[0].finish_reason === "stop") {
       res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`);
@@ -38,10 +39,25 @@ app.get("/recipeStream", (req, res) => {
           action: "start",
         };
       } else {
-        chunkResponse = {
-          action: "chunk",
-          chunk: chunk.choices[0].delta.content,
-        };
+        // Fetch nutrient data for each ingredient
+        const nutrientPromises = ingredients.map(ingredient => fetchNutrientData(ingredient));
+
+        try {
+          const nutrientDataList = await Promise.all(nutrientPromises);
+
+          chunkResponse = {
+            action: "chunk",
+            chunk: chunk.choices[0].delta.content,
+            nutrients: nutrientDataList,  // Include nutrient data in the response
+          };
+        } catch (error) {
+          console.error("Error fetching nutrient data:", error);
+          chunkResponse = {
+            action: "chunk",
+            chunk: chunk.choices[0].delta.content,
+            error: "Error fetching nutrient data.",
+          };
+        }
       }
       res.write(`data: ${JSON.stringify(chunkResponse)}\n\n`);
     }
