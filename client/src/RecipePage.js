@@ -98,10 +98,7 @@
 //     }
 //   };
 
-//   const handleGoBack = () => {
-//     goBack();
-//   };
-
+  
 //   return (
 //     <div className="recipe-container">
 //       <div className="recipe-header">
@@ -124,7 +121,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-const RecipePage = ({ recipeData, goBack }) => {
+const RecipePage = ({ recipeData, goBack, logOut }) => {
   const [recipeText, setRecipeText] = useState("");
   let eventSourceRef = useRef(null);
 
@@ -141,7 +138,7 @@ const RecipePage = ({ recipeData, goBack }) => {
 
   const initializeEventStream = () => {
     const queryParams = new URLSearchParams(recipeData).toString();
-    const url = `http://localhost:3001/recipeStream?${queryParams}`;
+    const url = `http://localhost:3001/ingredient_alchemy/ingredientrecipe?${queryParams}`;
     eventSourceRef.current = new EventSource(url);
 
     eventSourceRef.current.onmessage = (event) => {
@@ -169,6 +166,29 @@ const RecipePage = ({ recipeData, goBack }) => {
     goBack();
   };
 
+  // const handleLogout = () => {
+  //   logOut();
+  // };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/ingredient_alchemy/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        logOut();
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
+
   const handleRegenerate = () => {
     // Make a new API call with the same input data
     initializeEventStream();
@@ -187,6 +207,9 @@ const RecipePage = ({ recipeData, goBack }) => {
         </button>
         <button className="btn" onClick={handleGoBack}>
           Go Back to Recipe Form
+        </button>
+        <button className="btn-logout" onClick={handleLogout}>
+          Logout
         </button>
       </div>
     </div>
