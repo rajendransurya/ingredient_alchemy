@@ -1,38 +1,124 @@
 .App {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  background-color: #f3f4f6;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
+  /*background-image: url('E:\BDA Project\ingredient_alchemy_1\ingredient_alchemy\client\src\AdobeStock_378975954_Preview.jpeg');  Add your background image path here */
+  background-image: url('bda_1.jpg');
+  background-size: cover;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  /* background-color: #ffffff; */
+  /* background-image: url('E:\BDA Project\ingredient_alchemy_1\ingredient_alchemy\client\src\Iphone.jpeg'); */
+  background-image: url('bda_2.jpg');
+  background-size: cover;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-container {
+  width: 450px;
+  font-family: 'Roboto', sans-serif;
+  color: #4a4a4a;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .recipe-text {
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-line;
+  text-align: center;
+} */
+.recipe-text {
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-line;
+  text-align: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.form-container {
+  padding: 2rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  color: #4a4a4a;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #4a4a4a;
+  background-color: #f9f9f9;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+}
+
+.select-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #4a4a4a;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+  background-color: #f9f9f9;
+  background-image: url('data:image/svg+xml,<svg viewBox="0 0 24 24" fill="%234a4a4a" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px top 50%;
+}
+
+.btn {
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn:hover {
+  background-color: #0056b3;
 }

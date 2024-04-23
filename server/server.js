@@ -55,7 +55,10 @@ app.get("/recipeStream", (req, res) => {
   prompt.push(`[Cooking Time: ${cookingTime}]`);
   prompt.push(`[Complexity: ${complexity}]`);
   prompt.push(
-    "Please provide a recipes, including steps for preparation and cooking. Only use the ingredients provided."
+    "Please provide a recipe, including steps for preparation and cooking. Only use the ingredients provided."
+  );
+  prompt.push(
+    "Provide nutrional values example calories, protein, etc of the ingredients."
   );
   prompt.push(
     "The recipe should highlight the fresh and vibrant flavors of the ingredients."
@@ -77,6 +80,7 @@ app.get("/recipeStream", (req, res) => {
     res.end();
   });
 });
+
 
 async function fetchOpenAICompletionsStream(messages, callback) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
