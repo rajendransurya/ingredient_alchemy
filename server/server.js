@@ -4,7 +4,7 @@ const cors = require("cors");
 const OpenAI = require("openai");
 const session = require('express-session');
 const { Pool } = require('pg');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 dotenv.config();
@@ -70,7 +70,8 @@ router.post("/login", async (req, res) => {
     if (passwordMatch) {
       req.session.userId=username
       req.session.authenticated = true;
-      res.status(200).json({ message: "Login successful" });
+      res.sess
+      res.status(200).json({ message: "Login successful",sessionId: req.sessionID });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
@@ -82,9 +83,9 @@ router.post("/login", async (req, res) => {
 // SSE Endpoint
 router.get("/ingredientrecipe", (req, res) => {
 
-  if (!req.session.authenticated) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+  // if (!req.session.authenticated) {
+  //   return res.status(401).json({ message: "Unauthorized" });
+  // }
 
   const ingredients = req.query.ingredients;
   const mealType = req.query.mealType;
