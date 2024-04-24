@@ -138,7 +138,9 @@ const RecipePage = ({ recipeData, goBack, logOut }) => {
 
   const initializeEventStream = () => {
     const queryParams = new URLSearchParams(recipeData).toString();
-    const url = `http://localhost:3001/ingredient_alchemy/ingredientrecipe?${queryParams}`;
+    // const url = "http://localhost:3001/ingredient_alchemy/ingredientrecipe?${queryParams}";
+    const url = "http://18.223.182.235:3001/ingredient_alchemy/ingredientrecipe?${queryParams}";
+
     eventSourceRef.current = new EventSource(url);
 
     eventSourceRef.current.onmessage = (event) => {
@@ -172,7 +174,8 @@ const RecipePage = ({ recipeData, goBack, logOut }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:3001/ingredient_alchemy/logout", {
+      // const response = await fetch("http://localhost:3001/ingredient_alchemy/logout", {
+      const response = await fetch("http://18.223.182.235:3001/ingredient_alchemy/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

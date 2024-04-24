@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 // const LoginPage = ({ onLogin }) => {
 //   const [username, setUsername] = useState("");
 //   const [password, setPassword] = useState("");
@@ -70,10 +71,12 @@ const LoginPage = ({ onLogin }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-  
+
     const handleSubmit = async () => {
       try {
-        const response = await fetch("http://localhost:3001/ingredient_alchemy/login", {
+        const vaL= process.env.REACT_APP_API_URL
+          console.log("API URL:", vaL);
+        const response = await fetch("http://18.223.182.235:3001/ingredient_alchemy/login", {
         // const response = await fetch("http://backend:3001/ingredient_alchemy/login", {
           method: "POST",
           headers: {
@@ -91,7 +94,8 @@ const LoginPage = ({ onLogin }) => {
           setError(data.message);
         }
       } catch (err) {
-          setError("Error logging in");
+          setError("url:"+process.env.REACT_APP_API_URL)
+          // setError("Error logging in");
       }
     };
   
