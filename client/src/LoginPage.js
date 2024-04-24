@@ -73,26 +73,17 @@ const LoginPage = ({ onLogin }) => {
   
     const handleSubmit = async () => {
       try {
-        // const response = await fetch("http://localhost:3001/ingredient_alchemy/login", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ username, password }),
-        // });
-        //
-        // const data = await response.json();
-          const response = await fetch("http://backend:3001/ingredient_alchemy/login", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ username, password }),
-          });
-          
-
-
-          if (response.ok) {
+        const response = await fetch("http://localhost:3001/ingredient_alchemy/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
           onLogin();
         } else {
           setError(data.toString())
