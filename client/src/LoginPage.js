@@ -86,6 +86,7 @@ const LoginPage = ({ onLogin }) => {
         if (response.ok) {
           onLogin();
         } else {
+          setError(data.toString())
           setError(data.message);
         }
       } catch (err) {
