@@ -89,8 +89,7 @@ const LoginPage = ({ onLogin }) => {
           setError(data.message);
         }
       } catch (err) {
-          setError(err.toString())
-          setError("Error logging in");
+        setError("Error logging in");
       }
     };
   
